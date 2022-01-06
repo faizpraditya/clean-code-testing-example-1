@@ -1,0 +1,55 @@
+SQLX
+// driver
+go get github.com/jmoiron/sqlx
+// extension
+go get github.com/jackc/pgx/stdlib
+GORM
+go get gorm.io/gorm
+go get gorm.io/driver/postgres
+GINGONIC
+go get -u github.com/gin-gonic/gin
+GODOTENV
+go get github.com/joho/godotenv
+UUID
+go get -u github.com/google/uuid
+
+Oleh Uncle Bob beliau menyebutkan 4 layer pada arsitekturnya:
+1. Entities
+2. Usecase
+3. Controller
+4. Framework dan Driver
+Nah, pada project saya, saya juga memiliki 4 layer:
+1. Models, Layer ini merupakan layer yang menyimpan model yang dipakai pada domain lainnya. Layer ini dapat diakses oleh semua layer dan oleh semua domain.
+2. Repository,  Layer ini merupakan layer yang menyimpan database handler. Querying, Inserting, Deleting akan dilakukan pada layer ini. Tidak ada business logic disini. Yang ada hanya fungsi standard untuk input-output dari datastore.
+Layer ini memiliki tugas utama yakni menentukan datastore apa yang di gunakan. Teman-teman boleh memilih sesuai kepada kebutuhan, mungkin RDBMS (Mysql,PostgreSql, dsb) atau NoSql (Mongodb,CouchDB dsb).
+Jika menggunakan arsitektur microservice, maka layer ini akan bertugas sebagai penghubung kepada service lain. Layer ini akan terikat dan bergantung pada datastore yang digunakan.
+Bisa juga untuk ngehit API.
+3. Usecase, Layer ini merupakan layer yang akan bertugas sebagai pengontrol, yakni menangangi business logic pada setiap domain. Layer ini juga bertugas memilih repository apa yang akan digunakan, dan domain ini bisa memiliki lebih dari satu repository layer.
+4. Delivery, Layer ini merupakan layer yang akan bertugas sebagai presenter atau menjadi output dari aplikasi. Layer ini bertugas menentukan metode penyampaian yang dipakai, bisa dengan Rest API, HTML, gRPC, File dsb.
+
+Dari usecase bakal lebih deskriptif karena tentang business process
+
+belajar memahami code orang, karena bisa saja arsitektur berbeda tiap project, karena bisa jadi kita ditugaskan untuk develop project yang sudah ada.
+
+===========
+CREATE TABLE public.m_student
+(
+    id serial NOT NULL,
+    name character varying,
+    gender character varying,
+    age integer,
+    join_date date,
+    id_card character varying,
+    senior boolean,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE IF EXISTS public.m_student
+    OWNER to postgres;
+===============
+
+// Livecode
+refactor wmb-faiz
+semua bisa nembak ke payment, tapi member/tidak itu yang punya poin/tidak
+
+api opo dari golang
