@@ -42,8 +42,8 @@ func (r *repoMock) CreateOne(student model.Student) (*model.Student, error) {
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).(*model.Student), nil
-	// return args.Get(0).(*model.Student), args.Error(1)
+	// return args.Get(0).(*model.Student), nil
+	return args.Get(0).(*model.Student), args.Error(1)
 }
 
 func (r *repoMock) GetOneById(idCard string) (*model.Student, error) {

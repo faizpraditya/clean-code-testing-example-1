@@ -77,6 +77,7 @@ func (suite *StudentRepositoryTestSuite) TestStudentRepository_GetOneById() {
 		rows.AddRow(d.Id, d.Name, d.Gender, d.Age, d.JoinDate, d.IdCard, d.Senior)
 	}
 
+	// SELECT (.+) FROM m_student WHERE id_card=\$1
 	suite.mock.ExpectQuery("SELECT (.+) FROM m_student WHERE id_card=?").WithArgs("1").WillReturnRows(rows)
 
 	repo := NewStudentRepository(suite.mockResource)

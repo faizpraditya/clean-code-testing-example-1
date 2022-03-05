@@ -3,7 +3,6 @@ package delivery
 import (
 	"clean-code/model"
 	"clean-code/usecase"
-	"clean-code/utils"
 	"fmt"
 	"net/http"
 
@@ -37,28 +36,28 @@ func (api *StudentApi) getStudentById(c *gin.Context) {
 		return
 	}
 	c.JSON(200, gin.H{
-		"message": student,
+		"statusCode": 200, "message": "Created", "data": student,
 	})
 }
 
 // func (api *StudentApi) createStudent(c *gin.Context) {
 func (s *StudentApi) createStudent(c *gin.Context) {
-	var studentJSON model.StudentJSON
+	// var studentJSON model.StudentJSON
 	var student model.Student
-	err := c.ShouldBindJSON(&studentJSON)
+	err := c.ShouldBindJSON(&student)
 
 	if err != nil {
 		c.JSON(500, gin.H{"statusCode": 500, "message": "Internal server error"})
 		return
 	}
 
-	joinDate := utils.StringtoDate(studentJSON.JoinDate, "2006-01-02")
-	student.Name = studentJSON.Name
-	student.Age = studentJSON.Age
-	student.JoinDate = joinDate
-	student.Gender = studentJSON.Gender
-	student.IdCard = studentJSON.IdCard
-	student.Senior = studentJSON.Senior
+	// joinDate := utils.StringtoDate(studentJSON.JoinDate, "2006-01-02")
+	// student.Name = studentJSON.Name
+	// student.Age = studentJSON.Age
+	// student.JoinDate = joinDate
+	// student.Gender = studentJSON.Gender
+	// student.IdCard = studentJSON.IdCard
+	// student.Senior = studentJSON.Senior
 
 	// student.JoinDate = time.Now()
 	registered, _ := s.usecase.NewRegistration(student)
